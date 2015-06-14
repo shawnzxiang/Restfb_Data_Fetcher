@@ -21,7 +21,12 @@ Tomcat 8.0
 
 Eclipse (maven project)
 
+After everything is installed, you can run the program using: GET
 http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/*
+
+or/and then POST
+
+http://localhost:8080/JerseyJSONExample/rest/jsonServices/send
 
 where * is a public facebook page ID. You can find it after https://www.facebook.com/*
 
