@@ -2,13 +2,16 @@
 
 Author: Shawn Xiang 
 
-First prototype:
-This project can instantly print data, such as message, published dates and indicators of popularity in JSON format for any given public facebook page that can be used for aggie feed API. 
+This project can instantly print data, such as message, published dates and indicators of popularity in JSON format for any given public facebook page. 
+
+The project is designed for Aggie Feed API. 
+
+https://aggiefeed.ucdavis.edu/
 
 Run instruction:
 You will need the following .jar files (preferrably):
 
-Restfb  1.11.0
+Restfb 1.11.0
 
 Jackson 1.8.3
 
@@ -16,7 +19,7 @@ Jersey 1.9
 
 Tomcat 8.0
 
-Eclipse
+Eclipse (maven project)
 
 http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/*
 
