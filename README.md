@@ -1,25 +1,21 @@
 # AggieFeed
 
-Author: Shawn Xiang 
+This project can print and send data to a server, such as message, published dates and indicators of popularity in JSON format for any given public facebook page. 
 
-This project can instantly print data, such as message, published dates and indicators of popularity in JSON format for any given public facebook page. 
+The project is designed to be compatible with Aggie Feed rest API. (https://ucdavis.jira.com/wiki/display/IETP/UC+Davis+Aggie+Feed)
 
-The project is designed for Aggie Feed API. 
-
-https://aggiefeed.ucdavis.edu/
+Aggiefeed website: https://aggiefeed.ucdavis.edu/
 
 Run instruction:
-You will need the following .jar files (preferrably):
+You will need the following .jar files:
 
-Restfb 1.11.0
+Restfb v1.11.0
 
-Jackson 1.8.3
+Jackson v1.8.3
 
-Jersey 1.9
+Jersey v1.9
 
-Tomcat 8.0
-
-Eclipse (maven project)
+I tested the project in Eclipse (maven project) with Tomcat 8.0
 
 After everything is installed, you can run the program using: GET
 http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/*
@@ -31,6 +27,6 @@ http://localhost:8080/JerseyJSONExample/rest/jsonServices/send
 where * is a public facebook page ID. You can find it after https://www.facebook.com/*
 
 For example, college of engineering at UC Davis (https://www.facebook.com/UCDEngineering) has "UCDEngineering"
-IEEE uc davis branch(https://www.facebook.com/ieeeucdavis) has "ieeeucdavis"
+and IEEE uc davis branch(https://www.facebook.com/ieeeucdavis) has "ieeeucdavis"
 
-Thanks to awesome tutorials by restfb.com and codegeeks.
+Credit: Thanks to awesome tutorials by restfb.com and codegeeks.
