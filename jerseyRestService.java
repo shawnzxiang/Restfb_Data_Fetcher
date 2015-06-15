@@ -41,9 +41,7 @@ public class JerseyRestService {
 
 	// URL to obtain an access token: https://developers.facebook.com/tools/explorer
 	
-	 static String ACCESS_TOKEN = "CAACEdEose0cBABWdsw9U2Awz1h2zzqyzZBU9DFh0IcVIIDEXOaSyaBbJTHj0LiwrPeiVaVP0FHrh1bC4GjCtGQf7jnFpxLl9ziJZAvfx366lulJwRi9GRzgIs9TqhbrDZBJvEVaVhGcHStbQ5aXMVChL89L4CpnyirPZCd0geOZAvYcon9pO5RvteUz1iaUgYoHxbxvHBVcZBwMCTZBmv5Ot5UZCTwxkgWAZD";
-	 
-	 
+	 static String ACCESS_TOKEN = "CAACEdEose0cBAAAn8v2FomnTHV3mi69Vv2dntwq3ZCP88zc9wPmLymZAGvZBDD5ddplD1tDOFHEpljztZAoPvPFI98HmQl85Ja6Uaw4nRUiTDdgMUhXMKiYI0lgmPwg4KNcFE30ooAk0yYAufka5B4LdqZBiOZAers3KMY1gSEbi1wOKqYEK1Lc5Fjn4ixtuJOmHcOc4Kc9D99AEehoZBfpZBoB8LOuzBuQZD";
 	int sizeOfArray = 0; 
 	
 	@GET
@@ -53,7 +51,8 @@ public class JerseyRestService {
 		
 		FacebookClient fbclient = new DefaultFacebookClient(ACCESS_TOKEN, Version.VERSION_2_3); 
 
-		Connection<Post> message = fbclient.fetchConnection(name + "/feed", com.restfb.types.Post.class, Parameter.with("name", name), Parameter.with("limit", 200)); 
+		// Use /feed for all the posts, including fan posts. Use "to" and "until" to specify a date
+		Connection<Post> message = fbclient.fetchConnection(name + "/posts", com.restfb.types.Post.class, Parameter.with("limit", 100)); 
 		
 		
 		List<Post> detailedPost = message.getData(); 
@@ -81,7 +80,7 @@ public class JerseyRestService {
 		for (int i = 0; i < detailedPost.size(); i++) {
 			String id = message.getData().get(i).getId();
 			personPosted[i] = detailedPost.get(i).getFrom().getName().toString(); 
-			if (personPosted[i].equals(name)) {
+		//	if (personPosted[i].equals(name)) {
 			/*
 		JsonObject jsonObject = fbclient.fetchObject(id + "/comments", JsonObject.class, 
 	                Parameter.with("summary", true), Parameter.with("limit", 1));
@@ -115,12 +114,12 @@ public class JerseyRestService {
 		 if (detailedPost.get(i).getPlace() != null) {
 		 locationPosted[i] = detailedPost.get(i).getPlace().getLocationAsString();
 		    }
-		 } // if name matches
+		 //} // if name matches
 		}
 		
 		for (int i = 0; i < detailedPost.size(); i++) {
 			
-			if (personPosted[i].equals(name)) {
+			//if (personPosted[i].equals(name)) {
 			System.out.println("# "+ i ); 
 			System.out.println("Likes: " + numberOfLikes[i]); 
 			System.out.println("Comments: "+ commentCount[i]); 
@@ -142,15 +141,15 @@ public class JerseyRestService {
 			
 			System.out.println("Published Date: " + publishedDate[i]); 
 			System.out.println("Last Commented: " + lastCommented[i]); 
-			} // if name matches
+			//} // if name matches
 			}
 		
 		
 		activity [] st = new activity[size+1]; 
 		for (int k = 0; k < size; k++) {
-			if (personPosted[k].equals(name)) {
+			//if (personPosted[k].equals(name)) {
 		st[k] = new activity(name, pictureLink[k], "Shawn", locationPosted[k], publishedDate[k].toString(), storyText[k]);
-			}  //if 
+			//}  //if 
 		}// for
 		return st;
 
