@@ -4,9 +4,11 @@ This project can print and send data to a server, such as message, published dat
 
 The project is designed to be compatible with Aggie Feed rest API. (https://ucdavis.jira.com/wiki/display/IETP/UC+Davis+Aggie+Feed)
 
-Aggiefeed website: https://aggiefeed.ucdavis.edu/
+Aggiefeed website: 
+https://aggiefeed.ucdavis.edu/
 
-Run instruction:
+Run instruction
+
 You will need the following .jar files:
 
 Restfb v1.11.0
