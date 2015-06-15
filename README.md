@@ -1,6 +1,6 @@
 # AggieFeed
 
-This project can print and send data to a server, such as message, published dates and indicators of popularity in JSON format for any given public facebook page. 
+This project can print and send data to a server, such as message, published dates and indicators of popularity in JSON format for database and string format for any public facebook page. 
 
 The project is designed to be compatible with Aggie Feed rest API. (https://ucdavis.jira.com/wiki/display/IETP/UC+Davis+Aggie+Feed)
 
@@ -26,7 +26,10 @@ http://localhost:8080/JerseyJSONExample/rest/jsonServices/send
 
 where * is a public facebook page ID. You can find it after https://www.facebook.com/*
 
-For example, college of engineering at UC Davis (https://www.facebook.com/UCDEngineering) has "UCDEngineering"
-and IEEE uc davis branch(https://www.facebook.com/ieeeucdavis) has "ieeeucdavis"
+For example, college of engineering at UC Davis (https://www.facebook.com/UCDEngineering) would be
+http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/UCDEngineering
 
-Credit: Thanks to awesome tutorials by restfb.com and codegeeks.
+and Game of Thrones Facebook page would be 
+http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/GameOfThrones
+
+Special thanks to awesome tutorials by restfb.com, CBroe from StackOverflow and codegeeks.
