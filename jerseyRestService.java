@@ -53,7 +53,7 @@ public class JerseyRestService {
 		
 		FacebookClient fbclient = new DefaultFacebookClient(ACCESS_TOKEN, Version.VERSION_2_3); 
 
-		Connection<Post> message = fbclient.fetchConnection(name + "/feed", com.restfb.types.Post.class, Parameter.with("name", name), Parameter.with("limit", 1000)); 
+		Connection<Post> message = fbclient.fetchConnection(name + "/feed", com.restfb.types.Post.class, Parameter.with("name", name), Parameter.with("limit", 200)); 
 		
 		
 		List<Post> detailedPost = message.getData(); 
