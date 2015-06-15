@@ -1,5 +1,3 @@
-// Written by Shawn
-
 package com.javacodegeeks.enterprise.rest.jersey;
 
 import javax.ws.rs.GET;
@@ -15,6 +13,10 @@ import javax.ws.rs.core.Response;
 import java.util.Date;
 import java.util.List;
 
+import java.lang.Object; 
+import java.lang.Number; 
+import java.lang.Long; 
+
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.DefaultJsonMapper;
@@ -23,22 +25,25 @@ import com.restfb.FacebookClient;
 import com.restfb.JsonMapper;
 import com.restfb.Parameter;
 import com.restfb.Version;
-import com.restfb.json.JsonArray;
-import com.restfb.json.JsonObject;
 import com.restfb.types.Page;
 import com.restfb.types.Post;
 import com.restfb.types.Place; 
 import com.restfb.types.Url;
 import com.restfb.types.User;
 import com.restfb.types.FacebookType; 
+import com.restfb.types.Post.Likes;
+import com.restfb.json.*;
 // Example source : http://examples.javacodegeeks.com/enterprise-java/rest/jersey/json-example-with-jersey-jackson/
 
 
 @Path("/jsonServices")
 public class JerseyRestService {
 
+	// URL to obtain an access token: https://developers.facebook.com/tools/explorer
 	
-	static String ACCESS_TOKEN = "CAACEdEose0cBAAobhgy9pSPs86ZB9HS2rh99qo7ElSQiolamAMUhcXCXnT1qPcQsdKoexR8ZBrGhh65VNiGjSXqerCF1iK52gq6nsyT1ZAOBaYujZCZB19EpdLDMBtWo6c93UrPqTf1hsK3jkkmNuZAzUzeUdwuB6FVxfCrZCnA2aViU1XOS50zuBn6NBNqHZAtl0M9Xo6QnjbeUHPl9BaxDeYhjlP0cChQZD";
+	 static String ACCESS_TOKEN = "CAACEdEose0cBABWdsw9U2Awz1h2zzqyzZBU9DFh0IcVIIDEXOaSyaBbJTHj0LiwrPeiVaVP0FHrh1bC4GjCtGQf7jnFpxLl9ziJZAvfx366lulJwRi9GRzgIs9TqhbrDZBJvEVaVhGcHStbQ5aXMVChL89L4CpnyirPZCd0geOZAvYcon9pO5RvteUz1iaUgYoHxbxvHBVcZBwMCTZBmv5Ot5UZCTwxkgWAZD";
+	 
+	 
 	int sizeOfArray = 0; 
 	
 	@GET
@@ -48,7 +53,8 @@ public class JerseyRestService {
 		
 		FacebookClient fbclient = new DefaultFacebookClient(ACCESS_TOKEN, Version.VERSION_2_3); 
 
-		Connection<Post> message = fbclient.fetchConnection(name + "/feed", com.restfb.types.Post.class,  Parameter.with("until","3/1/2015" ), Parameter.with("to", "1/1/2014"), Parameter.with("limit", 100)); 
+		Connection<Post> message = fbclient.fetchConnection(name + "/feed", com.restfb.types.Post.class, Parameter.with("name", name), Parameter.with("limit", 1000)); 
+		
 		
 		List<Post> detailedPost = message.getData(); 
 		
@@ -57,7 +63,7 @@ public class JerseyRestService {
 		sizeOfArray = size; 
 		
 		Date[] publishedDate = new Date[size]; 
-		//String[] numberOfLikes = new String[size]; 
+		String[] numberOfLikes = new String[size]; 
 		String[] pictureLink = new String[size]; 
 		String[] linkCaption = new String[size]; 
 		String[] linkDescription = new String[size]; 
@@ -67,12 +73,37 @@ public class JerseyRestService {
 		Date [] lastCommented = new Date[size]; 
 		String [] locationPosted = new String[size]; 
 		String[] storyText = new String[size]; 
+		String[] commentCount = new String[size]; 
+		String[] personPosted = new String[size]; 
 		
+		//http://restfb.com/javadoc/com/restfb/types/Post.html
 		
 		for (int i = 0; i < detailedPost.size(); i++) {
-		 publishedDate[i] = detailedPost.get(i).getCreatedTime(); 
-		// if (detailedPost.get(i).getLikesCount() != null)
-		// numberOfLikes[i] = detailedPost.get(i).getLikesCount().toString(); 
+			String id = message.getData().get(i).getId();
+			personPosted[i] = detailedPost.get(i).getFrom().getName().toString(); 
+			if (personPosted[i].equals(name)) {
+			/*
+		JsonObject jsonObject = fbclient.fetchObject(id + "/comments", JsonObject.class, 
+	                Parameter.with("summary", true), Parameter.with("limit", 1));
+		System.out.println(jsonObject); 
+	    long commentsTotalCount = jsonObject.getJsonObject("summary").getLong("total_count");
+	     commentCount[i] = Long.toString(commentsTotalCount); 
+		
+	     jsonObject = fbclient.fetchObject(id + "/likes", JsonObject.class, 
+	                Parameter.with("summary", true), Parameter.with("limit", 1));
+	    long likesTotalCount = jsonObject.getJsonObject("summary").getLong("total_count");
+	     numberOfLikes[i] = Long.toString(likesTotalCount); 
+	    */
+	     Post postObject = fbclient.fetchObject(id, 
+	    		  Post.class, 
+	    		  Parameter.with("fields", "from,to,likes.summary(true),comments.summary(true)"));
+	     numberOfLikes[i] = postObject.getLikes().getTotalCount().toString(); 
+	    
+	     commentCount[i] = postObject.getComments().getTotalCount().toString(); 
+	     
+	     
+	     publishedDate[i] = detailedPost.get(i).getCreatedTime(); 
+		 
 		 linkCaption[i] = detailedPost.get(i).getCaption(); 
 		 pictureLink[i] = detailedPost.get(i).getPicture();
 		 linkDescription[i] = detailedPost.get(i).getDescription(); 
@@ -83,12 +114,16 @@ public class JerseyRestService {
 		 storyText[i] = detailedPost.get(i).getMessage(); 
 		 if (detailedPost.get(i).getPlace() != null) {
 		 locationPosted[i] = detailedPost.get(i).getPlace().getLocationAsString();
-		 }
+		    }
+		 } // if name matches
 		}
 		
 		for (int i = 0; i < detailedPost.size(); i++) {
+			
+			if (personPosted[i].equals(name)) {
 			System.out.println("# "+ i ); 
-			//System.out.println("Likes: " + numberOfLikes[i]); 
+			System.out.println("Likes: " + numberOfLikes[i]); 
+			System.out.println("Comments: "+ commentCount[i]); 
 			if (storyText[i] != null)
 			System.out.println(storyText[i]); 
 				
@@ -107,17 +142,19 @@ public class JerseyRestService {
 			
 			System.out.println("Published Date: " + publishedDate[i]); 
 			System.out.println("Last Commented: " + lastCommented[i]); 
+			} // if name matches
 			}
 		
 		
-		//activity st = new activity("1", "2", "3", "4", "5", "6");
 		activity [] st = new activity[size+1]; 
-		for (int k = 0; k < size; k++)
-		st[k] = new activity(name, sourceLink[k], "Shawn", locationPosted[k], publishedDate[k].toString(), storyText[k]);
-
+		for (int k = 0; k < size; k++) {
+			if (personPosted[k].equals(name)) {
+		st[k] = new activity(name, pictureLink[k], "Shawn", locationPosted[k], publishedDate[k].toString(), storyText[k]);
+			}  //if 
+		}// for
 		return st;
 
-	}
+	} // get
 	
 	@POST
 	@Path("/send")
@@ -128,7 +165,7 @@ public class JerseyRestService {
 		output = output + student[i].toString();
 
 		return Response.status(200).entity(output).build();
-	}
+	} //post
 
 
 }
