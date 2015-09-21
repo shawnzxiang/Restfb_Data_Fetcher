@@ -7,7 +7,7 @@ The project is designed to be compatible with Aggie Feed rest API. (https://ucda
 Aggiefeed website: 
 https://aggiefeed.ucdavis.edu/
 
-Run instruction
+---Run instruction---
 
 You will need the following .jar files:
 
@@ -28,10 +28,8 @@ http://localhost:8080/JerseyJSONExample/rest/jsonServices/send
 
 where * is a public facebook page ID. You can find it after https://www.facebook.com/*
 
-For example, college of engineering at UC Davis (https://www.facebook.com/UCDEngineering) would be
-http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/UCDEngineering
+For example, 
 
-and Game of Thrones Facebook page would be 
+Game of Thrones Facebook page would be 
 http://localhost:8080/JerseyJSONExample/rest/jsonServices/print/GameOfThrones
 
-Special thanks to awesome tutorials by restfb.com, CBroe from StackOverflow and codegeeks.
