@@ -1,4 +1,4 @@
-# AggieFeed
+# Restfb
 
 This project can print and send data to a server, such as message, published dates and indicators of popularity in JSON format for database and string format for any public facebook page. 
 
