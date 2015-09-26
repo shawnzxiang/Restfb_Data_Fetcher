@@ -1,6 +1,6 @@
 # Simple data retrieve from Restfb using Java
 
-This small project was a screener warmup for my summer intern at IET where I worked on Aggie Feed (aggefeed.ucdavis.edu)
+This small project was a screener warmup for my summer intern at IET where I worked on Aggie Feed (aggiefeed.ucdavis.edu)
 
 This project can print and send data to a server, such as message, published dates and indicators of popularity in JSON format for database and string format for any public facebook page. 
 
